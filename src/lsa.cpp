@@ -6,6 +6,12 @@
 
 namespace lsa
 {
+    struct parameters
+    {
+        double a;
+        double b;
+    };
+    
     constexpr static auto Sxx{[](auto const &x) noexcept
     {
         return std::inner_product(std::cbegin(x), std::cend(x), std::cbegin(x), 0.0);
@@ -40,27 +46,34 @@ namespace lsa
         return Sxy(aux, y);
     }};
 
-    constexpr static auto predict{[](auto const a, auto const x, auto const b) noexcept
+    constexpr static auto fit{[](auto const &x, auto const &y) noexcept
     {
-        return a*x + b/x;
+        auto const n{x.size()};
+        auto const sxx{lsa::Sxx(x)};
+        auto const s1overx{lsa::S1overx(x)};
+        auto const sxy{lsa::Sxy(x, y)};
+        auto const syoverx{lsa::Syoverx(x, y)};
+        auto const a{(n * syoverx - sxy * s1overx) / (n * n - sxx * s1overx)};
+        auto const b{(sxy - a * sxx) / n};
+        return parameters{.a{a}, .b{b}};
     }};
-} // namespace lsa
+
+    constexpr static auto predict{[](auto const &params, auto const x) noexcept
+    {
+        return params.a*x + params.b/x;
+    }};
+} // namespace etkin
 
 int main(int argc, char const *argv[])
 {
-    std::vector<double> const x({-1.0, 0.5, 1.0});
-    std::vector<double> const y({-3.2, 4.55, 3.2});
-    auto const n{x.size()};
-    auto const sxx{lsa::Sxx(x)};
-    auto const s1overx{lsa::S1overx(x)};
-    auto const sxy{lsa::Sxy(x, y)};
-    auto const syoverx{lsa::Syoverx(x, y)};
-    auto const a{(n * syoverx - sxy * s1overx) / (n * n - sxx * s1overx)};
-    auto const b{(sxy - a * sxx) / n};
-    std::cout << "a : " <<  a << " b : " << b << std::endl;
-    std::for_each(std::cbegin(x), std::cend(x),[&](auto const xi)
+    
+    std::vector<double> const X({-1.0, 0.5, 1.0});
+    std::vector<double> const Y({-3.2, 4.55, 3.2});
+    auto const params{lsa::fit(X, Y)};
+    std::cout << "a : " <<  params.a << " b : " << params.b << std::endl;
+    std::for_each(std::cbegin(X), std::cend(X), [&](auto const x)
     {
-        std::cout << "predicted y : " << lsa::predict(a, xi, b) << std::endl;
+        std::cout << "predicted y : " << lsa::predict(params.a, params.b, x) << std::endl;
     });
     return 0;
 }
