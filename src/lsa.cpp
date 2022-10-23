@@ -73,7 +73,7 @@ int main(int argc, char const *argv[])
     std::cout << "a : " <<  params.a << " b : " << params.b << std::endl;
     std::for_each(std::cbegin(X), std::cend(X), [&](auto const x)
     {
-        std::cout << "predicted y : " << lsa::predict(params.a, params.b, x) << std::endl;
+        std::cout << "predicted y : " << lsa::predict(params, x) << std::endl;
     });
     return 0;
 }
