@@ -80,9 +80,11 @@ The `Syoverx` is the same but calls the `sum_of_mul` lambda with the aux and the
 
 ## impl2.cpp
 
+Similar functionality mentioned in the [impl1.cpp](#impl1cpp) exists in the constructor of the `LSA` object. It accumulates all the terms in the constructor in one loop and sets the parameters. This object can calculate the parameters only once but can predict many times.
+
 ## impl3.cpp
 
-test
+The same functionality as the [impl2.cpp](#impl2cpp) but this object can call the fit and predict functions many times. Additionally, summation terms are kept in structure called `Summations` which has the [operator+ overloaded](https://en.cppreference.com/w/cpp/language/operators) to be used with the [std::plus](https://en.cppreference.com/w/cpp/utility/functional/plus) function object. The [std::plus](https://en.cppreference.com/w/cpp/utility/functional/plus) is used as the reducer. The transformer is a custom lambda that calculates $\frac{1}{{x_i}^2}$, $x_i y_i$, $\frac{y_i}{x_i}$ and ${x_i}^2$. When the object is created, it is advised that it should be brace initialized so that the default values of the parameters would be 0.
 
 ## Compiler
 ```console
