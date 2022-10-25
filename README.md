@@ -47,7 +47,23 @@ $$ \frac{\partial E}{\partial b} = \sum_{i=1}^{n}-\frac{2}{x_i} \left(y_i - \lef
 
 $$ \boxed{\frac{\partial E}{\partial b} = \sum_{i=1}^{n} \left(-\frac{2y_i}{x_i} + 2a + \frac{2b}{{x_i}^2} \right) = 0}$$
 
-$$\frac{\partial E}{\partial a} = -\sum_{i=1}^{n} x_i y_i + n a \sum_{i=1}^{n}{x_i}^2 + n b = 0$$
+$$ \frac{\partial E}{\partial a} = -\sum_{i=1}^{n} x_i y_i + \sum_{i=1}^{n}a{x_i}^2 + n b = 0$$
+
+$$\frac{\partial E}{\partial b} = -\sum_{i=1}^{n}\frac{y_i}{x_i} + n a  + \sum_{i=1}^{n}\frac{b}{{x_i}^2} = 0$$
+
+If rearranged, 
+
+$$ b + \frac{1}{n} \sum_{i=1}^{n}a{x_i}^2 = \frac{1}{n} \sum_{i=1}^{n}{x_i y_i} $$
+
+$$ a + \frac{1}{n} \sum_{i=1}^{n}\frac{b}{{x_i}^2} = \frac{1}{n} \sum_{i=1}^{n}\frac{y_i}{x_i} $$
+
+If we represent b in terms of a and solve for a, a's estimator becomes
+
+$$\hat a = \frac{n \sum{\frac{y_i}{x_i}} - \sum x_iy_i \sum{\frac{1}{{x_i}^2}} } {n^2 - \sum{{x_i}^2} \sum{\frac{1}{{x_i}^2}}}$$
+
+the b's estimator becomes
+
+$$\hat b = \frac{1}{n} \sum x_iy_i - \frac{\hat a}{n} \sum{{x_i}^2}$$
 
 ## impl1.cpp
 
