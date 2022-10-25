@@ -14,6 +14,7 @@ namespace lsa
     
     constexpr static auto Sxx{[](auto const &x) noexcept
     {
+        return std::transform_reduce(std::cbegin(x), std::cend(x), 0.0, std::plus{}, [](auto const x) noexcept {return x*x; });
         return std::inner_product(std::cbegin(x), std::cend(x), std::cbegin(x), 0.0);
     }};
 
@@ -60,7 +61,19 @@ namespace lsa
 
     constexpr static auto predict{[](auto const &params, auto const x) noexcept
     {
-        return params.a*x + params.b/x;
+        return params.a * x + params.b / x;
+    }};
+
+    constexpr static auto predict{[](auto const &params, auto const &X) noexcept
+    {
+        using A = typename std::remove_reference<decltype(X)>::type;
+        using B = typename std::remove_const<A>::type;
+        B predictions(X.size());
+        std::transform(std::cbegin(X), std::cend(X), std::begin(predictions), [](auto const x) noexcept
+        {
+            return params.a * x + params.b / x;
+        });
+        return predictions;
     }};
 } // namespace etkin
 
