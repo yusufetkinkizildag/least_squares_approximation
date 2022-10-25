@@ -66,6 +66,8 @@ the b's estimator becomes
 $$\hat b = \frac{1}{n} \sum x_iy_i - \frac{\hat a}{n} \sum{{x_i}^2}$$
 
 ## impl1.cpp
+This implementation uses lambdas to calculate the summations. The `lsa::fit` function takes two vector of double as the arguments and assumes that these two vectors has the same length. The terms in the formulas are directly named as variables. For example $\sum{{x_i}^2}$ is `auto const sxx{lsa::sum_of_mul(x, x)};`. The `sum_of_mul` stands for the 'summation of the multiplications' which uses [std::transform_reduce](https://en.cppreference.com/w/cpp/algorithm/transform_reduce) function to iterate over the given vectors. Every element of the vectors are multiplied and then these multiplications get reduced by summation. If two of the vectors are the same than the 
+
 
 ## impl2.cpp
 
