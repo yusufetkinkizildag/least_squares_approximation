@@ -66,8 +66,17 @@ the b's estimator becomes
 $$\hat b = \frac{1}{n} \sum x_iy_i - \frac{\hat a}{n} \sum{{x_i}^2}$$
 
 ## impl1.cpp
-This implementation uses lambdas to calculate the summations. The `lsa::fit` function takes two vector of double as the arguments and assumes that these two vectors has the same length. The terms in the formulas are directly named as variables. For example $\sum{{x_i}^2}$ is `auto const sxx{lsa::sum_of_mul(x, x)};`. The `sum_of_mul` stands for the 'summation of the multiplications' which uses [std::transform_reduce](https://en.cppreference.com/w/cpp/algorithm/transform_reduce) function to iterate over the given vectors. Every element of the vectors are multiplied and then these multiplications get reduced by summation. If two of the vectors are the same than the 
+This implementation uses lambdas to calculate the summations. The `lsa::fit` function takes two vector of double as the arguments and assumes that these two vectors has the same length. The terms in the formulas are directly named as variables. For example $\sum{{x_i}^2}$ is `auto const sxx{lsa::sum_of_mul(x, x)};`. The `sum_of_mul` stands for the 'summation of the multiplications' which uses [std::transform_reduce](https://en.cppreference.com/w/cpp/algorithm/transform_reduce) function to iterate over the given vectors. The lambda returns the accumulated result of the element wise multiplication of the two vectors. When the two of the vectors refers to the same vector, it means that dot product of that vector will be returned.
 
+$\sum{\frac{1}{{x_i}^2}}$ is `auto const s1overx{lsa::S1overx(x)};`
+
+$\sum{x_i y_i}$ is `auto const sxy{lsa::sum_of_mul(x, y)};`
+
+$\sum{\frac{y_i}{x_i}}$ is `auto const syoverx{lsa::Syoverx(x, y)};`
+
+`S1overx` is another lambda that finds the underlying data type of the given argument (which is a vector of double in this case) using [std::remove_reference](https://en.cppreference.com/w/cpp/types/remove_reference) and [std::remove_const](https://en.cppreference.com/w/cpp/types/remove_cv). Constructs an auxillary vector that holds the multiplicative inverse values of the given vector x and calls the `sum_of_mul` lambda with the two arguments being the same auxillary vector to calculate the term $\sum{\frac{1}{{x_i}^2}}$
+
+The `Syoverx` is the same but calls the `sum_of_mul` lambda with the aux and the second vector (y).  
 
 ## impl2.cpp
 
