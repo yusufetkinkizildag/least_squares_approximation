@@ -39,11 +39,13 @@ $$e_i = y_i - \left( ax_i + \frac{b}{x_i} \right) $$
 When using the least squares approximation method, coefficients $a$ and $b$ are calculated by setting the partial derivatives of the $$E = \sum_{i=1}^{n}\left(y_i - \left( ax_i + \frac{b}{x_i}\right) \right)^2$$ to zero with respect to $a$ and $b$.
 
 
-$$ \sum_{i=1}^{n}y_i - \left( ax_i + \frac{b}{x_i}\right)$$
+$$ \frac{\partial E}{\partial a} = \sum_{i=1}^{n}-2x_i \left(y_i - \left( ax_i + \frac{b}{x_i}\right)\right) = 0$$
 
-$$ \frac{\partial E}{\partial a} = -2x_i(yi−(axi+bxi))=∑(−2xiyi+2ax2i+2b) = 0$$
+$$ \frac{\partial E}{\partial a} = \sum_{i=1}^{n} \left(-2x_iy_i + 2a{x_i}^2 + 2b\right) = 0$$
 
-$$ \frac{\partial E}{\partial b} = 0$$
+$$ \frac{\partial E}{\partial b} = \sum_{i=1}^{n}-\frac{2}{x_i} \left(y_i - \left( ax_i + \frac{b}{x_i}\right)\right) = 0$$
+
+$$ \frac{\partial E}{\partial b} = \sum_{i=1}^{n} \left(-\frac{2y_i}{x_i} + 2a + \frac{2b}{{x_i}^2} \right) = 0$$
 
 ## impl1.cpp
 
