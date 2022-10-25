@@ -41,11 +41,11 @@ When using the least squares approximation method, coefficients $a$ and $b$ are 
 
 $$ \frac{\partial E}{\partial a} = \sum_{i=1}^{n}-2x_i \left(y_i - \left( ax_i + \frac{b}{x_i}\right)\right) = 0$$
 
-$$ \frac{\partial E}{\partial a} = \sum_{i=1}^{n} \left(-2x_iy_i + 2a{x_i}^2 + 2b\right) = 0$$
+$$ \boxed{\frac{\partial E}{\partial a} = \sum_{i=1}^{n} \left(-2x_iy_i + 2a{x_i}^2 + 2b\right) = 0}$$
 
 $$ \frac{\partial E}{\partial b} = \sum_{i=1}^{n}-\frac{2}{x_i} \left(y_i - \left( ax_i + \frac{b}{x_i}\right)\right) = 0$$
 
-$$ \frac{\partial E}{\partial b} = \sum_{i=1}^{n} \left(-\frac{2y_i}{x_i} + 2a + \frac{2b}{{x_i}^2} \right) = 0$$
+$$ \boxed{\frac{\partial E}{\partial b} = \sum_{i=1}^{n} \left(-\frac{2y_i}{x_i} + 2a + \frac{2b}{{x_i}^2} \right) = 0}$$
 
 ## impl1.cpp
 
