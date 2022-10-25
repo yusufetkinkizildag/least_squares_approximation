@@ -8,7 +8,7 @@ namespace lsa
 {
     constexpr static auto sum_of_mul{[](auto const &x, auto const &y) noexcept
     {
-        return std::transform_reduce(std::cbegin(x), std::cend(x), std::cbegin(y), 0.0, std::plus{}, std::multiplies{});
+        return std::transform_reduce(std::cbegin(x), std::cend(x), std::cbegin(y), 0.0);
     }};
 
     constexpr static auto  multiplicative_inverse{[](auto const i) noexcept { return 1.0 / i; }};
