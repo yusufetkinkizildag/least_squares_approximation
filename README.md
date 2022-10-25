@@ -47,6 +47,8 @@ $$ \frac{\partial E}{\partial b} = \sum_{i=1}^{n}-\frac{2}{x_i} \left(y_i - \lef
 
 $$ \boxed{\frac{\partial E}{\partial b} = \sum_{i=1}^{n} \left(-\frac{2y_i}{x_i} + 2a + \frac{2b}{{x_i}^2} \right) = 0}$$
 
+$$\frac{\partial E}{\partial a} = -\sum_{i=1}^{n} x_i y_i + n a \sum_{i=1}^{n}{x_i}^2 + n b = 0$$
+
 ## impl1.cpp
 
 ## impl2.cpp
